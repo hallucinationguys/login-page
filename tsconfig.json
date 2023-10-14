@@ -1,9 +1,21 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "src/app/components/*"
+      ],
+      "@/public/*": [
+        "public/*"
+      ]
+    },
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "allowJs": true,
     "noEmit": true,
@@ -19,18 +31,23 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "baseUrl": "./src/",
     "incremental": true,
-    "noImplicitAny": false
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
+    ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**.config.js",
-    "scripts/**/*.js",
-    "./jest.setup.js",
-    "./cypress/tests/*.ts"
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.jsx"
   ],
-  "exclude": ["node_modules", "**/*.test.ts?x", "**/*.cy.ts"]
+  "exclude": [
+    "node_modules"
+  ]
 }
