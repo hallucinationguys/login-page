@@ -17,6 +17,10 @@ import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useAuthContext } from 'src/contexts/authentication'
 
 const validationSignInSchema = z.object({
   email: z.string().email(),
@@ -31,12 +35,16 @@ const validationSignInSchema = z.object({
     }),
 })
 
-type LoginSchemaType = z.infer<typeof validationSignInSchema>
+const loginFormDefaultValues = { email: '', password: '' }
 
 export default function SignIn() {
   const { toast } = useToast()
+  const { push } = useRouter()
+  const { login, isLogin } = useAuthContext()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const formInstance = useForm<LoginSchemaType>({
+  const formInstance = useForm({
+    defaultValues: loginFormDefaultValues,
     resolver: zodResolver(validationSignInSchema),
   })
   const {
@@ -45,12 +53,19 @@ export default function SignIn() {
     handleSubmit,
   } = formInstance
 
-  const onSubmit = (data: LoginSchemaType) => {
-    toast({
-      variant: 'success',
-      title: 'Data from user',
-      description: `Email: ${data.email} \n Password:${data.password}`,
-    })
+  const onSubmit = (data: typeof loginFormDefaultValues) => {
+    setIsLoading(true)
+    try {
+      login(data.email, data.password)
+    } catch (error) {
+      toast({
+        variant: 'error',
+        title: 'Error',
+        description: `Login fail`,
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -86,10 +101,14 @@ export default function SignIn() {
                 />
 
                 <div className="flex w-full justify-between text-sm">
-                  <Link className="text-indigo-600" href="/signup">
+                  <Link
+                    className="text-indigo-700 hover:opacity-80 underline underline-offset-4"
+                    href="/signup">
                     Already have an account
                   </Link>
-                  <Link className="text-pink-700" href="/forgot-password">
+                  <Link
+                    className="text-pink-700 hover:opacity-80"
+                    href="/forgot-password">
                     Forget password
                   </Link>
                 </div>

@@ -1,7 +1,7 @@
 {
   "endOfLine": "lf",
   "bracketSpacing": true,
-  "bracketSameLine": false,
+  "bracketSameLine": true,
   "jsxSingleQuote": false,
   "printWidth": 80,
   "proseWrap": "always",

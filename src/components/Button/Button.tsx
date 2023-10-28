@@ -44,8 +44,7 @@ export function Button(props: Props) {
         className,
       )}
       type={props?.type}
-      {...rest}
-    >
+      {...rest}>
       <div className="w-full flex flex-row justify-center items-center ">
         {icon} {children}
       </div>

@@ -3,11 +3,17 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": [
-        "src/app/components/*"
+        "src/components/*"
       ],
       "@/public/*": [
         "public/*"
-      ]
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
     },
     "target": "esnext",
     "module": "esnext",
