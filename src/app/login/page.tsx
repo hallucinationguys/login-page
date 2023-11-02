@@ -74,7 +74,7 @@ export default function SignIn() {
         <Card className="w-[400px]">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl justify-center flex">
-              Sign in
+              Login
             </CardTitle>
             <CardDescription className="text-md justify-center flex font-medium">
               Welcome back 👋
@@ -103,17 +103,24 @@ export default function SignIn() {
                 <div className="flex w-full justify-between text-sm">
                   <Link
                     className="text-indigo-700 hover:opacity-80 underline underline-offset-4"
-                    href="/signup">
+                    href="/signup"
+                  >
                     Already have an account
                   </Link>
                   <Link
                     className="text-pink-700 hover:opacity-80"
-                    href="/forgot-password">
+                    href="/forgot-password"
+                  >
                     Forget password
                   </Link>
                 </div>
-                <Button appearance="primary" className="w-full " type="submit">
-                  Sign in
+                <Button
+                  appearance="primary"
+                  className="w-full"
+                  size="lg"
+                  type="submit"
+                >
+                  Login
                 </Button>
               </CardContent>
             </form>

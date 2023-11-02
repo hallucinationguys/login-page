@@ -66,7 +66,8 @@ export default function SignUpPage() {
                 <div className="grid gap-1.5 leading-none">
                   <label
                     htmlFor="terms1"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
                     Accept terms and conditions
                   </label>
                   <p className="text-sm text-muted-foreground">
@@ -74,7 +75,12 @@ export default function SignUpPage() {
                   </p>
                 </div>
               </div>
-              <Button appearance="primary" className="w-full" type="submit">
+              <Button
+                appearance="primary"
+                className="w-full"
+                type="submit"
+                size="lg"
+              >
                 Register
               </Button>
             </CardContent>
@@ -82,8 +88,6 @@ export default function SignUpPage() {
           <CardFooter></CardFooter>
         </Card>
       </div>
-
-      <div> Hello</div>
     </>
   )
 }

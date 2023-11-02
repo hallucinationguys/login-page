@@ -23,7 +23,8 @@ export default function Home() {
                 {navigationItems.map((item, idx) => (
                   <li
                     key={idx}
-                    className="text-gray-700 hover:text-pink-700 mx-2">
+                    className="text-gray-700 hover:text-pink-700 mx-2"
+                  >
                     <Link href={item.path}>{item.title}</Link>
                   </li>
                 ))}
