@@ -15,7 +15,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const { label, required = false, disabled = false, ...rest } = props
 
     return (
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col space-y-1">
         {label && (
           <label className={cx(`${styles.label}`)} htmlFor={label}>
             {label}
