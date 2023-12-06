@@ -13,12 +13,6 @@ export default defineConfig({
       schemas: './model',
       client: 'swr',
       prettier: true,
-      override: {
-        mutator: {
-          path: './mutator/requester.ts',
-          name: 'requester',
-        },
-      },
     },
     hooks: {
       afterAllFilesWrite: 'eslint ./src/api --ext .ts,.tsx,.js --fix', // run lint fix after all files are written

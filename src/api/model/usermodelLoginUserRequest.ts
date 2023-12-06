@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface RequestLoginRequest {
+export interface UsermodelLoginUserRequest {
   email?: string
   password?: string
 }

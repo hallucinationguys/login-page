@@ -5,88 +5,42 @@
  * Ecosystem The System Guys API Document
  * OpenAPI spec version: 1.0
  */
+
 import axios from 'axios'
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import useSwr from 'swr'
-import type { Key, SWRConfiguration } from 'swr'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import type {
-  RequestLoginRequest,
-  RequestSignUpRequest,
-  ResponseResponse,
+  UsermodelLoginUserRequest,
+  UsermodelLoginUserResponse,
+  UsermodelUserCreate,
+  UsermodelUserResponse,
 } from '../model'
 
 /**
- * Login User
- * @summary Login User
+ * login user, returns user and set session
+ * @summary Login new user
  */
-export const postApiAuthenticationLogin = (
-  requestLoginRequest: RequestLoginRequest,
+export const postAuthLogin = (
+  usermodelLoginUserRequest: UsermodelLoginUserRequest,
   options?: AxiosRequestConfig,
-): Promise<AxiosResponse<ResponseResponse>> => {
+): Promise<AxiosResponse<UsermodelLoginUserResponse>> => {
   return axios.post(
-    `http://localhost:8080/api/authentication/login`,
-    requestLoginRequest,
+    `http://localhost:8080/v1/auth/login`,
+    usermodelLoginUserRequest,
     options,
   )
 }
 
 /**
- * Register User
- * @summary Register User
+ * Register new user
+ * @summary Register new user
  */
-export const postApiAuthenticationRegister = (
-  requestSignUpRequest: RequestSignUpRequest,
+export const postAuthRegister = (
+  usermodelUserCreate: UsermodelUserCreate,
   options?: AxiosRequestConfig,
-): Promise<AxiosResponse<ResponseResponse>> => {
+): Promise<AxiosResponse<UsermodelUserResponse>> => {
   return axios.post(
-    `http://localhost:8080/api/authentication/register`,
-    requestSignUpRequest,
+    `http://localhost:8080/v1/auth/register`,
+    usermodelUserCreate,
     options,
   )
-}
-
-/**
- * Get Me
- * @summary Get Me
- */
-export const getApiMe = (
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<ResponseResponse>> => {
-  return axios.get(`http://localhost:8080/api/me`, options)
-}
-
-export const getGetApiMeKey = () => [`/api/me`] as const
-
-export type GetApiMeQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiMe>>
->
-export type GetApiMeQueryError = AxiosError<unknown>
-
-/**
- * @summary Get Me
- */
-export const useGetApiMe = <TError = AxiosError<unknown>>(options?: {
-  swr?: SWRConfiguration<Awaited<ReturnType<typeof getApiMe>>, TError> & {
-    swrKey?: Key
-    enabled?: boolean
-  }
-  axios?: AxiosRequestConfig
-}) => {
-  const { swr: swrOptions, axios: axiosOptions } = options ?? {}
-
-  const isEnabled = swrOptions?.enabled !== false
-  const swrKey =
-    swrOptions?.swrKey ?? (() => (isEnabled ? getGetApiMeKey() : null))
-  const swrFn = () => getApiMe(axiosOptions)
-
-  const query = useSwr<Awaited<ReturnType<typeof swrFn>>, TError>(
-    swrKey,
-    swrFn,
-    swrOptions,
-  )
-
-  return {
-    swrKey,
-    ...query,
-  }
 }
