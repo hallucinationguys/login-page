@@ -20,7 +20,6 @@ import { Toaster } from '@/components/ui/toaster'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useAuthContext } from 'src/contexts/authentication'
-
 const validationSignInSchema = z.object({
   email: z.string().email(),
   password: z
@@ -97,7 +96,7 @@ export default function SignIn() {
                   type="password"
                   {...register('password')}
                   error={errors.password && errors.password.message}
-                />
+                ></Input>
 
                 <div className="flex w-full justify-between text-sm">
                   <Link

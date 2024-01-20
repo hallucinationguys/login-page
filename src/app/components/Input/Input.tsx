@@ -1,9 +1,11 @@
 import React from 'react'
 import cx from 'clsx'
 import { styles } from './Input.style'
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
+  passwordType?: string
   error?: boolean | string
   fullWidth?: boolean
   required?: boolean
@@ -30,6 +32,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           required={required}
           {...rest}
         />
+
         {props.error && (
           <p className="text-xs text-pink-600 font-medium">{props.error}</p>
         )}

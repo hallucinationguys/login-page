@@ -1,10 +1,14 @@
 'use client'
 
+import { useState } from 'react'
+import Link from 'next/link'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -13,10 +17,7 @@ import { InputShadcn } from '@/components/ui/input'
 import { Button } from '@/components/Button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useToast } from '@/components/ui/use-toast'
-import { FormProvider, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { useState } from 'react'
+import { ArrowLeftIcon } from '@radix-ui/react-icons'
 
 const MAX_FILE_SIZE = 500000
 const ACCEPTED_IMAGE_MIME_TYPES = [
@@ -120,6 +121,15 @@ export default function SignUpPage() {
 
   return (
     <>
+      <div className="w-full p-4 absolute">
+        <Link
+          className="text-indigo-700 hover:opacity-80 underline underline-offset-4 font-bold text-lg"
+          href="/login"
+        >
+          <ArrowLeftIcon className="inline-block mr-2 " />
+          Back to login
+        </Link>
+      </div>
       <div className="w-full min-h-screen flex justify-center items-center py-4">
         <Card>
           <CardHeader className="space-y-1">
@@ -198,9 +208,11 @@ export default function SignUpPage() {
                   type="file"
                   {...register('image')}
                   error={errors.image && errors.image.message}
+                  className="border-2 focus:ring-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                  border-gray-300 transition duration-300 ease-in-out"
                 />
 
-                <div className="items-top flex space-x-2">
+                <div className="items-top flex space-x-2 ">
                   <Checkbox id="terms1" {...register('isVerified')} />
                   <div className="grid gap-1.5 leading-none">
                     <label
