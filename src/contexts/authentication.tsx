@@ -2,12 +2,12 @@
 
 import { createContext, useContext, useState, useCallback } from 'react'
 import { WithChildren } from '../types/common'
-import { ResponseResponse, postApiAuthenticationLogin } from 'src/api'
+import { postAuthRegister, postAuthLogin, UsermodelUserResponse } from 'src/api'
 
 interface AuthContextValues {
   isLogin: boolean
   login: (email: string, password: string) => Promise<any>
-  user?: ResponseResponse
+  user?: UsermodelUserResponse
 }
 
 const AuthContext = createContext<AuthContextValues>({} as AuthContextValues)
@@ -17,17 +17,21 @@ export function AuthContextProvider({ children }: WithChildren) {
     typeof window !== 'undefined' && window.localStorage.token,
   )
 
-  const [user, setUser] = useState<ResponseResponse>()
+  const [user, setUser] = useState<UsermodelUserResponse>()
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const res = await postApiAuthenticationLogin({ email, password }, {})
+      const res = await postAuthLogin({ email, password }, {})
       if (res.data) {
         setIsLogin(true)
-        let data = JSON.stringify(res.data.data)
-        window.localStorage.setItem('token', String(data))
+        console.log(res.data.user)
+        window.localStorage.setItem('token', String(res.data.access_token))
+        window.localStorage.setItem(
+          'token_expires',
+          String(res.data.access_token_expires_at),
+        )
       }
     } catch (error) {
-      throw new Error('Incorrect email or password')
+      console.log(error)
     }
   }, [])
 
