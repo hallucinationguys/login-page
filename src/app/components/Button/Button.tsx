@@ -44,6 +44,7 @@ export function Button(props: Props) {
         className,
       )}
       type={props?.type}
+      onClick={props?.onClick}
       {...rest}
     >
       <div className="w-full flex flex-row justify-center items-center ">

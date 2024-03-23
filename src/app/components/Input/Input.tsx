@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'clsx'
 import { styles } from './Input.style'
-import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string

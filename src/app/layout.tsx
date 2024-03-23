@@ -1,14 +1,11 @@
+'use client'
+
 import './globals.css'
-import type { Metadata } from 'next'
 import { Nunito_Sans } from 'next/font/google'
 import { AuthContextProvider } from 'src/contexts/authentication'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Nunito_Sans({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'Login Page',
-  description: 'The System Guys ecosystem',
-}
 
 export default function RootLayout({
   children,
@@ -17,8 +14,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Login page</title>
+        <meta
+          content="Login service from Hallucination Guys"
+          name="description"
+        />
+      </head>
       <body className={inter.className}>
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <AuthContextProvider>
+          {children}
+          <Toaster />
+        </AuthContextProvider>
       </body>
     </html>
   )

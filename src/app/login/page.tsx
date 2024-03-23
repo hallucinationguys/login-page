@@ -4,22 +4,21 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useAuthContext } from 'src/contexts/authentication'
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Icons } from '@/components/ui/icons'
 import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
+import { Logo } from '@/components/Logo'
 import { useToast } from '@/components/ui/use-toast'
-import { Toaster } from '@/components/ui/toaster'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { useAuthContext } from 'src/contexts/authentication'
+
 const validationSignInSchema = z.object({
   email: z.string().email(),
   password: z
@@ -36,7 +35,6 @@ const validationSignInSchema = z.object({
 const loginFormDefaultValues = { email: '', password: '' }
 
 export default function SignIn() {
-  const { toast } = useToast()
   const { push } = useRouter()
   const { login, isLogin } = useAuthContext()
   const [isLoading, setIsLoading] = useState(false)
@@ -51,99 +49,110 @@ export default function SignIn() {
     handleSubmit,
   } = formInstance
 
-  const onSubmit = (data: typeof loginFormDefaultValues) => {
+  const { toast } = useToast()
+
+  const onSubmit = async (data: typeof loginFormDefaultValues) => {
     setIsLoading(true)
     try {
-      login(data.email, data.password)
+      await login(data.email, data.password)
+      toast({
+        variant: 'success',
+        title: 'Register success',
+        description: `Great, we back to process`,
+      })
     } catch (error) {
       toast({
         variant: 'error',
-        title: 'Error',
-        description: `Login fail`,
+        title: 'Login Error',
+        description: `${error}`,
       })
     } finally {
       setIsLoading(false)
     }
   }
 
-  return (
-    <>
-      <div className="w-full min-h-screen flex justify-center items-center">
-        <Card className="w-[400px]">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl justify-center flex">
-              Login
-            </CardTitle>
-            <CardDescription className="text-md justify-center flex font-medium">
-              Welcome back 👋
-            </CardDescription>
-          </CardHeader>
-          <FormProvider {...formInstance}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <CardContent className="grid gap-4 space-y-2">
-                <Input
-                  id="Email"
-                  label="Email"
-                  placeholder="Enter username or email"
-                  type="email"
-                  {...register('email')}
-                  error={errors.email && errors.email.message}
-                />
-                <Input
-                  id="Password"
-                  label="Password"
-                  placeholder="Enter password"
-                  type="password"
-                  {...register('password')}
-                  error={errors.password && errors.password.message}
-                ></Input>
+  useEffect(() => {
+    if (isLogin) {
+      setTimeout(() => {
+        push('/')
+      }, 1500)
+    }
+  }, [isLogin, push])
 
-                <div className="flex w-full justify-between text-sm">
-                  <Link
-                    className="text-indigo-700 hover:opacity-80 underline underline-offset-4"
-                    href="/signup"
-                  >
-                    Already have an account
-                  </Link>
-                  <Link
-                    className="text-pink-700 hover:opacity-80"
-                    href="/forgot-password"
-                  >
-                    Forget password
-                  </Link>
-                </div>
-                <Button
-                  appearance="primary"
-                  className="w-full"
-                  size="lg"
-                  type="submit"
-                >
-                  Login
-                </Button>
-              </CardContent>
-            </form>
-          </FormProvider>
-          <CardFooter className="grid gap-4">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-muted-foreground opacity-70">
-                  Or continue by
-                </span>
-              </div>
+  return (
+    <div>
+      {isLoading ? (
+        <div />
+      ) : (
+        <div className="w-full min-h-screen flex flex-col justify-center items-center">
+          <div
+            className="mb-8 flex flex-col justify-center items-center 
+          desktop2k:mb-8 desktop2k:mt-[-12rem]"
+          >
+            <div className="transform object-cover">
+              <Logo />
             </div>
-            <div className="grid grid-cols-1 gap-2">
-              <Button className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-2 focus:outline-none focus:ring-pink-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-white dark:hover:bg-[#050708]/30">
-                <Icons.GitHub className="mx-2 h-6 w-8" />
-                Sign in with Github
-              </Button>
+            <div>
+              <p className="font-semibold text-3xl">
+                Hallucination Guys say hi 👋
+              </p>
             </div>
-          </CardFooter>
-        </Card>
-      </div>
-      <Toaster />
-    </>
+          </div>
+          <Card className="w-[400px]">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl justify-center flex">
+                Login
+              </CardTitle>
+              <CardDescription className="text-md justify-center flex font-medium" />
+            </CardHeader>
+            <FormProvider {...formInstance}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <CardContent className="grid gap-4 space-y-2">
+                  <Input
+                    id="Email"
+                    label="Email"
+                    placeholder="Enter username or email"
+                    type="email"
+                    {...register('email')}
+                    error={errors.email && errors.email.message}
+                  />
+                  <Input
+                    id="Password"
+                    label="Password"
+                    placeholder="Enter password"
+                    type="password"
+                    {...register('password')}
+                    error={errors.password && errors.password.message}
+                  />
+
+                  <div className="flex w-full justify-between text-sm">
+                    <Link
+                      className="text-indigo-700 hover:opacity-80"
+                      href="/signup"
+                    >
+                      Already have an account
+                    </Link>
+                    <Link
+                      className="text-pink-700 hover:opacity-80"
+                      href="/forgot-password"
+                    >
+                      Forget your password?
+                    </Link>
+                  </div>
+                  <Button
+                    appearance="primary"
+                    className="w-full"
+                    size="lg"
+                    type="submit"
+                  >
+                    Login
+                  </Button>
+                </CardContent>
+              </form>
+            </FormProvider>
+          </Card>
+        </div>
+      )}
+    </div>
   )
 }
