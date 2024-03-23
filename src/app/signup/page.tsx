@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import { Logo } from '@/components/Logo'
-import { Checkbox } from '@/components/ui/checkbox'
+import { Checkbox } from '@/components/CheckBox'
 import { useToast } from '@/components/ui/use-toast'
 
 /*eslint prefer-regex-literals: "error"*/
@@ -54,7 +54,7 @@ const validationSignUpSchema = z
     policy: z.boolean(),
   })
   .refine((data) => data.policy === true, {
-    message: 'You must accept Terms and Conditions',
+    message: 'You must accept Terms of Service and Privacy Policy.',
     path: ['policy'],
   })
   .refine((data) => data.password === data.passwordConfirm, {
@@ -216,29 +216,25 @@ export default function SignUpPage() {
                     error={errors.phone && errors.phone.message}
                   />
 
-                  <div className="items-top flex space-x-2 ">
-                    <Checkbox id="terms1" {...register('policy')} />
-                    <div className="grid gap-1.5 leading-none">
-                      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                      <label
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        htmlFor="terms1"
-                      >
-                        Accept terms and conditions
-                      </label>
+                  <div className="flex flex-row space-x-2 ">
+                    <Checkbox id="terms1" {...register('policy')}>
+                      Accept terms and conditions
+                      <div className="grid gap-1.5 leading-none">
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 
-                      <p className="text-sm text-muted-foreground">
-                        You agree to our{' '}
-                        <Link href="/policy">
-                          Terms of Service and Privacy Policy.
-                        </Link>
-                      </p>
-                      {errors.policy && (
-                        <p className="text-xs italic text-red-500 ">
-                          {errors.policy?.message}
+                        <p className="text-sm text-muted-foreground">
+                          You agree to our{' '}
+                          <Link href="/policy">
+                            Terms of Service and Privacy Policy.
+                          </Link>
                         </p>
-                      )}
-                    </div>
+                        {errors.policy && (
+                          <p className="text-xs text-pink-600 font-medium">
+                            {errors.policy?.message}
+                          </p>
+                        )}
+                      </div>
+                    </Checkbox>
                   </div>
                   <Button
                     appearance="primary"
