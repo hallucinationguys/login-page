@@ -43,7 +43,7 @@ We are adopting TypeScript to our codebase. Forcing to write strongly-typed synt
 - [x] Catching your bugs at compile-time as you type them.
 - [x] Coding confidently with autocompletion, definition jumping and source documentation.
 - [x] Relieve the pain of refactoring/renaming .
-- [ ] Syncing API Interfaces between backend and frontend via Swagger json doc.
+- [X] Syncing API Interfaces between backend and frontend via Swagger json doc.
 
 
 ### SWR
@@ -83,7 +83,7 @@ We are using `tailwind` to do styling and it scales pretty well when combining h
 Most of the frontend applications consist of four layers: Service connector, State management, Logic and UI. We opinionate about the technology for each layer with a guarantee of production readiness.
 
 <div align="center">
-    <img src="./public/img/architecture.png"  align="center" />
+    <img src="../public/img/architecture.png"  align="center" />
 </div>
 
 ## Linting

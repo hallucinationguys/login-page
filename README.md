@@ -36,5 +36,5 @@ pnpm dev
 
 ## Documentation
 
-- [Architecture](./docs/architect.md.md.md)
+- [Architecture](./docs/architect.md)
 - [Tech ecosystem](https://github.com/hallucinationguys/playbook)
