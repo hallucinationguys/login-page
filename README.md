@@ -28,9 +28,9 @@ pnpm dev
 
 ## Resources
 
-| Name       | Description | Link                                                 |
-| ---------- | ----------- | ---------------------------------------------------- |
-| API Source | Go          | https://github.com/hallucinationguys/login-service   |
+| Name       | Description | Link                                                                          |
+| ---------- | ----------- | ----------------------------------------------------------------------------- |
+| API Source | Go          | https://github.com/hallucinationguys/login-service/blob/main/docs/swagger.json|
 
 
 
